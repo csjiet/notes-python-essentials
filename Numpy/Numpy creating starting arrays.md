@@ -1,0 +1,4 @@
+- Empty array
+- Array with all elements being a specific value
+- Zeros array
+- Ones array
