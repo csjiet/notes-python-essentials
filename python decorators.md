@@ -1,95 +1,87 @@
 
-`@{  }`
-
-Use: To ENHANCE an existing function's definition.
-
-Syntax:
-```python
-def function_which_takes_func_object_as_argument(func):
-	def new_func():
-		func()	
-		print('added feature')
-		
-	return new_func
-
-@function_which_takes_func_object_as_argument
-def func():
-	print('old feature')
-	return None
+## Syntax
+```
+def decorate_function(decorated_function):
+	def packaging_decorate_and_decorated_function():
+		# Can be at any order
+		# operation from decorate_function()
+		# operation from decorated_function()
 	
-# decorators without arguments are used without parentheses, whereas decorators with arguments require parentheses, even if you pass empty arguments. 
-# So when using a decorator, you have to wonder whether it takes arguments or not. A bit more to think about everytime you use a decorator.
+	return packaging_decorate_and_decorated_function	
 
-# The example decorator above does not take in arguments, where the function object does not count. Hence it can be defined by @{decorator_func_name} without parenthesis.
+@{decorate_function}
+def decorated_function():
+	pass
 ```
-> Examples where decorator requires parenthesis [Example which is a little confusing](https://tech.people-doc.com/python-class-based-decorators.html#:~:text=decorators%20without%20arguments%20are%20used,if%20you%20pass%20empty%20arguments.)
+- The `decorate_function` (like sprinkles/ icing), the `decorated_function` (the muffin).
+- Once the muffin is taken into the sprinkle/ icing factory (function), there is a (assembly function) - `packaging_decorate_and_decorated_function()`, which combines both functions together into a new, more complex operation.
+- The "assembled" function - `packaging_decorate_and_decorated_function()` is returned as a function identifier.
 
-You might ask, why not just define a new function with another identifier?
-- Well the use of python decorator effectively reduces redefinition of code, and just allows the capability to build upon an existing function that was previously defined or maybe to maintain two version of functions another with more complex and enchanced implementation.
-- The basic idea behind a decorator is to take a function, modify its behavior and then return the modified function. This can be useful in situations where we want to add functionality to a function or class, but don't want to modify the original source code.
+> How to remember?
+> - The `@decorate_function` is always taken into another function as argument (apparent from its explicit declaration as an argument) and combined with another function, using another nested function - e.g., `packaging_deorate_and_decorated_function()` declared within `decorate_function()`, where it is ultimately returned as a function signature/ identifier.
 
-Prerequisites:
-- Python "Closure" concept:
-	- Python closure is a "nested function" (e.g., `printer()`) that allows us to access variables (e.g., `greeting`, `message`) of the outer function (e.g., `print_msg`) even after it is done executing/ "closed" - hence the use of the name python "closure".
+## Use: 
+- To ENHANCE an existing function's definition.
+
+> The two set of python code below performs the same operations, while demonstrates how the presence of decorators can be a replacement of longer code (without decorators). 
+
+### Syntax without decorators:
 ```python
-def print_msg(message):
-	greeting = 'Hello'
+def my_decorator(function_to_be_decorated):
 
-	def printer():
-		print(greeting, message)
+    def wrapper_function():
+        print("This is some code before the decorated function")
 
-	return printer
+        function_to_be_decorated()
 
-# Notice when print_msg() is done executing, running the func() function in the next line, which is a function object still retrieves `greeting` and `message` values, even when print_msg() is already out of scope.
-func = print_msg("Python is awesome")
-func()
+        print("This is some code after the decorated function")
 
-# Output:
-# Hello Python is awesome
+    return wrapper_function
+
+def my_func():
+    print("This is the function to be decorated")
+
+decorated_function = my_decorator(my_func)
+
+decorated_function()
 ```
-
-The codes below generates the same output, where one uses the python decorator, while one does not.
-
-- Without @ (python decorator)
+- Output:
+```
+This is some code before the decorated function
+This is the function to be decorated
+This is some code after the decorated function
+```
+### Syntax with decorators
 ```python
-def display_info(func):
-	# inner function
-	def new_printer():
-		print("Executing", func.__name__, "function")
-		func()
-		print("Finished execution")
-	return new_printer 
+def my_decorator(function_to_be_decorated):
 
-def printer():
-	print("Hello world")
+    def wrapper_function():
+        print("This is some code before the decorated function")
 
-printer = display_info(printer)
+        function_to_be_decorated()
 
-# A function - `display_info()` "takes in another function as argument - `printer()`", to define a NEW function - `new_printer()`, usually to enhance the function's functionality, and returns it as a NEW python function object. Assigned and replacing the definition of existing/ old function identifier - printer().
-# printer() now takes in a new function definition.
+        print("This is some code after the decorated function")
+
+    return wrapper_function
+
+@my_decorator
+def my_func():
+    print("This is the function to be decorated")
+
+my_func()
 ```
-- With @ (python decorator)
-
-## Python decorator taking 1 function object
-```python
-def display_info(func):
-	# inner function
-	def new_printer():
-		print("Executing", func.__name__, "function")
-		func()
-		print("Finished execution")
-	return new_printer 
-
-@display_info
-def printer():
-	print("Hello world")
-
-# Hence, when `printer()` function is being called, it effectively executes the function definition of the new function - `new_printer()`.
-
-# The only difference:
-# Effectively removing the last line of the code above, which requires a re-assignment to a new variable.
-# It basically is the same as above - replacing/ enhancing the function definition of printer() to new_printer(). 
+- Output
 ```
+This is some code before the decorated function
+This is the function to be decorated
+This is some code after the decorated function
+```
+
+- Essentially, you just call the `decorated_function` and it does all the process of assembly (combining + returning the combined + call) for you.
+- Notice we do not need to call `decorate_function()()`, where the first `()` returns a function identifier, and the next `()` calls it as a function.
+
+------
+> We can also extend Python decorators to applications which involves more than one function.
 
 ## Python decorator taking >1 function objects
 -  It is possible, but not recommended.
