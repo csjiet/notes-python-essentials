@@ -1,0 +1,7 @@
+Characteristics of Parquet files
+1. **Columnar Storage**: Parquet files store data in a columnar format, where the values of each column are stored together. This allows for efficient compression and encoding of data, as columns with similar data types tend to have similar values.
+2. **Compression**: Parquet files support various compression algorithms, which can significantly reduce the file size. Compression is more effective in columnar storage due to the similarity of values within a column.
+3. **Schema Evolution**: Parquet files store metadata about the schema of the data, which enables schema evolution over time. New columns or changes to column data types can be added without requiring the entire dataset to be rewritten.
+4. **Predicates Pushdown**: Some query engines, like Apache Spark and Apache Hive, can take advantage of Parquet's internal structure to optimize query processing. This includes filtering rows at the storage level before reading the data, reducing I/O overhead.
+5. **Compatibility**: Parquet files can be read and written by various programming languages and data processing tools. This makes it suitable for multi-tool and multi-language data ecosystems.
+6. **Support for Nested Data**: Parquet supports complex and nested data structures, such as arrays and maps, making it suitable for handling semi-structured data.

@@ -2,46 +2,67 @@ Depending on how you `import` modules, it will propagate the python namespace di
 > Namespace: a container that holds a collection of names (identifiers) and associates them with corresponding objects or values. It provides a way to organize and differentiate names to avoid naming conflicts and to provide a unique context for each name.
 
 What is the difference between files vs modules?
-- Files and modules are the same thing, it is just that one is the subset of the other.
-## File`.py`(s) $\subseteq$ Module
-- Python module $\approx$ Directory
-	-  A "module" (instead of a "directory") = a collection of files (`.py`) 
-	- Module -> multiple Files - class/ functions/ variables only 
-	- A `.py` file can either have: Variables only, Functions only, class
+- `File` (a generic file denoted by any extension: `.txt`, ...)
+- `Module` (a python file denoted by `.py`) $\rightarrow$ `Package` (Multiple `Module`(s))
+	- Hence, a `Module` is just a file containing python code.
+
+## What is in a `module`?
+- A module =`.py` file that can either be structured as: Variables only, Functions only, class
 ```python
 # Variables only
-###################################
-# Untitled.py
-var_a = "IMPORT STATEMENT failed!"
-###################################
+# untitled_variables_only.py
+# ###################################
+# var_a = "IMPORT STATEMENT failed!"
+# ###################################
+
 
 # Functions only
-###################################
-# Untitled.py
-def error_func1():
-	return "IMPORT STATEMENT failed!"
-	
-def error_func2():
-	return "SYNTAX ERROR!"
-###################################
+# untitled_functions_only.py
+# ###################################
+# def error_func1():
+# 	return "IMPORT STATEMENT failed!"
+# 	
+# def error_func2():
+# 	return "SYNTAX ERROR!"
+# ###################################
+
 
 # Class 
-###################################
-# Untitled.py
-class ErrorClass:
-	def __init__(self):
-		self.flag_1 = 0
-		self.flag_2 = 0
-		
-	def error_func1():
-		if self.flag_1 = 1:
-			return "IMPORT STATEMENT failed!"
-###################################
+# untitled_class_or_classes.py
+# ###################################
+# class ErrorClass:
+# 	def __init__(self):
+# 		self.flag_1 = 0
+# 		self.flag_2 = 0
+# 		
+# 	def error_func1():
+# 		if self.flag_1 = 1:
+# 			return "IMPORT STATEMENT failed!"
+# ###################################
 ```
 
-# Importing module/ Importing multiple files
-- Since modules are just the superset of files.
-## `import {module}` vs `from {module} import *`
+## What is in a package?
+- A python package is a directory that has multiple python files.
+
+```
+my_package/
+├── __init__.py
+├── module1.py
+├── module2.py
+└── subpackage/
+    ├── __init__.py
+    ├── submodule1.py
+    └── submodule2.py
+```
+- Each package 
+	1) Contains python files (`.py`).
+	2) Contains a `__init__.py` module, which tells Python Interpreter to initialize & register this "directory" as a Python package. Without this, Python will not recognize it as a package, and won't be able to import modules from that directory in code as a package.
+
+-----
+# Importing a `module` (a python file) vs importing a `package` (multiple python files in a directory)
+
+### 1. Modules
+ `import {module}` vs `from {module} import *`
 - ## `import {module}`
 	- Imports the entire module into the current namespace, which means you can access the objects (fields, functions) ONLY AFTER prefixing them with the module name.
 ```python
@@ -74,3 +95,5 @@ print(pi) # called directly without module name as prefix
 print(sqrt(25))
 ```
 
+
+## 2. Importing packages

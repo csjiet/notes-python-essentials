@@ -21,10 +21,10 @@ Questions that are answered in [[Pandas Data Frames]]:
 - [[EDA 0 > IMPORTS]]
 
 ## Phase: DATA UNDERSTANDING
-- [[EDA 1 > DATA UNDERSTANDING]]
+- [[EDA 1 > DATA FORMATTING]]
 
 ## Phase: DATA PREPARATION
-- [[EDA 2 > DATA PREPARATION]]
+- [[EDA 2 > DATA MANIPULATION]]
 
 ## Phase: Feature Understanding
 - [[EDA 3 > FEATURE UNDERSTANDING]]

@@ -1,28 +1,38 @@
-Making changes to data frame
-- Premise:
-	- Dropping irrelevant columns and rows
-	- Identifying duplicated columns
-	- Renaming Columns
-	- Feature Creation
-- Functions:
-- `df['col_name'] = df['col_name'].replace({value/ list_of_values}, {replaced_value/replaced_list_of_values})`
-	- Resources:
-		- https://datatofish.com/replace-values-pandas-dataframe/
-	- Replace existing values in a column to new values.
-	- 
-- `df.drop({labels}, axis, index, columns, level, inplace, errors )`
-	- Removes a list of "named" columns
-	- Arguments:
-		- `labels`: \[`labels`\]; A list of columns with their identifiers/ names that we are attempting to 'drop' (remove the column from our data frame).
-		- `axis`: `0 (default)` - drops row/ "index"  /`1` - drops columns
-		- `index`: \[`labels`\] - It is equivalent to `(labels, axis= 0)`, more useful when we deal with Multiindex data frames.
-		- `columns`: \[`labels`\] - It is equivalent to `(labels, axis=1)`, more useful when we deal with Multiindex data frames.
-		- `level`: `None` (default), `int` / `level name` - The level (in a hierarchical multiindex) from which the labels will be removed.
-			- [Level](https://stackoverflow.com/questions/45235992/what-are-levels-in-a-pandas-dataframe#:~:text=The%20levels%20are%20parts%20of,(level)%20of%20our%20choice.): The column 'number' (like an index, but for columns) 
-		- `inplace`: `False` (default) - returns a copy of the DataFrame; `True` - updates the data frame used to reference the function, and returns `None`.
-		- `errors`: `'raise'` (default) - allow error reporting, `'ignore'` - suppress error and only existing labels are dropped.
-			- Errors: KeyError - If any of the labels is not found in the selected axis.
+Formally: "Data Preparation"
 
+> This document focuses on **altering the data frame by value** (overwrites the existing dataframe) - add/ removal/ replace
+
+Making changes to data frame
+## Operations:
+- Replace values
+
+## Functions:
+---- 
+### Op: Replace values
+```python 
+df['col_name'] = df['col_name'].replace({value/ list_of_values}, {replaced_value/replaced_list_of_values})
+```
+- Resources:
+	- https://datatofish.com/replace-values-pandas-dataframe/
+- Replace existing values in a column to new values.
+
+---- 
+### Op. Remove columns
+```python
+df.drop({labels}, axis, index, columns, level, inplace, errors )
+```
+- Removes a list of "named" columns
+- Arguments:
+	- `labels`: \[`labels`\]; A list of columns with their identifiers/ names that we are attempting to 'drop' (remove the column from our data frame).
+	- `axis`: `0 (default)` - drops row/ "index"  /`1` - drops columns
+	- `index`: \[`labels`\] - It is equivalent to `(labels, axis= 0)`, more useful when we deal with Multiindex data frames.
+	- `columns`: \[`labels`\] - It is equivalent to `(labels, axis=1)`, more useful when we deal with Multiindex data frames.
+	- `level`: `None` (default), `int` / `level name` - The level (in a hierarchical multiindex) from which the labels will be removed.
+		- [Level](https://stackoverflow.com/questions/45235992/what-are-levels-in-a-pandas-dataframe#:~:text=The%20levels%20are%20parts%20of,(level)%20of%20our%20choice.): The column 'number' (like an index, but for columns) 
+	- `inplace`: `False` (default) - returns a copy of the DataFrame; `True` - updates the data frame used to reference the function, and returns `None`.
+	- `errors`: `'raise'` (default) - allow error reporting, `'ignore'` - suppress error and only existing labels are dropped.
+		- Errors: KeyError - If any of the labels is not found in the selected axis.
+- Example
 ```python
 df = pd.DataFrame(np.arange(12).reshape(3, 4),
                    columns=['A', 'B', 'C', 'D'])
@@ -103,17 +113,25 @@ df.drop(index='length', level=1) # At column NUMBER (level) = 1 not column label
 #         weight  1.0     0.8
 ```
 
-- `df.rename(columns={'old_name_0': 'new_name_0', ..., 'old_name_n':'new_name_n'})`
-	- Renames specified columns specified by the key-value pair in the dictionary, which are just the old-new names to be updated respectively. 
-	- Because names might be too complex, long, ....
-- `df.dropna(axis= 0, how= "any", thresh= None, subset= None, inplace= False)`
-	- Arguments:
-		- `axis`: `0 (default)` - row or `1` - column
-		- `how`: `any (default)` - drops the row/ column if any of the values is `NA` or `all` - drops the row/ column if all of the values are `NA`.
-		- (optional) `thresh`:  `None` (default) an integer value to specify the threshold count for the drop operation.
-		- (optional) `subset`: `[]` An array of column name(s)/ label (s) where found `NA` are dropped.
-		- `inplace`: `True` (data frame used to reference the function will be updated in place) or `False` (default) ( data frame used to reference the function will not be updated)
-		- [Examples](https://www.digitalocean.com/community/tutorials/pandas-dropna-drop-null-na-values-from-dataframe)
+------
+### Op. Rename columns
+``` python
+df.rename(columns={'old_name_0': 'new_name_0', ..., 'old_name_n':'new_name_n'})
+```
+- Renames specified columns specified by the key-value pair in the dictionary, which are just the old-new names to be updated respectively. 
+- Because names might be too complex, long, ....
+------
+### Op. Drop N/A (not accessed) rows/columns
+``` python
+df.dropna(axis= 0, how= "any", thresh= None, subset= None, inplace= False)
+```
+- Arguments:
+	- `axis`: `0 (default)` - row or `1` - column
+	- `how`: `any (default)` - drops the row/ column if any of the values is `NA` or `all` - drops the row/ column if all of the values are `NA`.
+	- (optional) `thresh`:  `None` (default) an integer value to specify the threshold count for the drop operation.
+	- (optional) `subset`: `[]` An array of column name(s)/ label (s) where found `NA` are dropped.
+	- `inplace`: `True` (data frame used to reference the function will be updated in place) or `False` (default) ( data frame used to reference the function will not be updated)
+- [Examples](https://www.digitalocean.com/community/tutorials/pandas-dropna-drop-null-na-values-from-dataframe)
 ```python
 d2 = {
 'Name': ['Shark', 'Whale', 'Jellyfish', 'Starfish', pd.NaT],
@@ -211,8 +229,18 @@ df2
 #     Name        ID     Population  Regions Endangered
 
 ```
-- Specific functions:
-	- `pd.to_datetime(df['data_col_name'])`
-		- Type cast the column from 'object' to 'datetime64' data type.
-	- `pd.to_numeric(df['string_integers'])`
-		- Type cast the column from 'string' data type to 'int64' data type.
+
+-----
+### Op. Unit conversion (string -> datetime64)
+```python
+pd.to_datetime(df['data_col_name'])
+```
+- Type cast the column from 'object' to 'datetime64' data type.
+
+-----
+### Op. Unit conversation (string -> int64)
+``` python 
+pd.to_numeric(df['string_integers'])
+```
+- Type cast the column from 'string' data type to 'int64' data type.
+

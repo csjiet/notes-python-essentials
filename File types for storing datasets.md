@@ -1,3 +1,6 @@
+Resources:
+- [Parquet files](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
+
 Generic file type
 1. gzip
 	1. extension: `.gz`
@@ -58,7 +61,6 @@ Specific file type
 		1. dtypes are retained when written, and read.
 	5. Cons:
 		1. Large memory usage (BUT smaller than: csv)
-3. parquet
 	1. extension: `.parquet` 
 	2. Installation:
 		1. `!pip install pyarrow` OR 
