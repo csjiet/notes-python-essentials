@@ -5,7 +5,10 @@
 
 - Use: **Bundle files** together into a **single archive** (instead of a messy tree directory structure).
 	- NOTE: Tar files do not provide compression on their own
-- Extension: `.tar` only.
+- Extension: `.tar` only - a.k.a "tarball". 
+
+> "tarball" - simply denoting a `.tar` file, which can also be compressed by an algorithm. 
+> - ball: denotes combining multiple files.
 
 # 2. `tar` + `.compression`
 - Use: Bundle files together (`.tar`) + compression algorithms ({list below}):
@@ -16,16 +19,32 @@
 		- tar archive + bzip2 compression (Files are bundled together using tar and then compressed with bzip2 algorithm.)
 	- `.tar.xz`:
 		- tar archive + xz compression (Files are bundled together using tar and then compressed with xz algorithm.)
-
-## Compressed file extraction commands
+  
+------
+# gzip
 ### Extracting`.tar.gz`:
 ``` bash
 tar -xzvf yourfile.tar.gz
 ```
 - `-x`: Extract files.
 - `-z`: Use gzip to uncompress the file.
-- `-v`: Verbose mode (optional, provides detailed output).
+- `-v`: Verbose mode (optional, provides detailed output of files that are processed).
 - `-f`: Specifies the archive file to operate on.
 
+#### Compressing a directory into `.tar.gz`:
+> We typically want to compress a directory because its a nested unit which we wish to represent it as 1 unit.
+``` bash
+tar -czvf yourfile.tar.gz /path/to/directory_to_compress
+```
+- `-c`: Create a new archive
+- `-z`: Compress the archive using gzip
+- `-v`: Verbosely list the files processed
+- `-f`: Specifies the filename of your archived file
+
+------
 ### Extracting`.tar.bz2`:
+
+-----
 ### Extracting`.tar.xz`:
+
+-----
