@@ -1,3 +1,6 @@
+Resources:
+- [NumPy: More "Array creation routines"](https://numpy.org/doc/stable/reference/routines.array-creation.html)
+
 All list-array-tensors are contiguous memory block upon creation.
 
 # Lists
