@@ -7,19 +7,30 @@ All list-array-tensors are contiguous memory block upon creation.
 -  heterogenous, ordered, mutable data structures.
 	- mutable: updates are done in-place of existing data structure.
 - PERKS: Heterogeneity
-```
-# Empty list
+``` python
+## Empty list ##
 var = []
 
-# Manual
+## Manual ##
 # 1D list 
 var = [3, 'text', True]
 
-# Automated
-# 1D list comprehension
+## Single list comprehension ##
+# Single list comprehension
 var = [x for x in range(10)]
 
-# list constructor
+arr = [] # Verbose loop example 
+for i in range(3):
+    for j in range(3):
+        arr.append((i, j))
+print(arr) # [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)]
+
+# Nested single list comprehension
+arr = [(i,j) for i in range(3) for j in range(3)]
+print(arr) # [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)]
+
+
+## list constructor ##
 list({iterables_or_map_or_filter})
 ```
 

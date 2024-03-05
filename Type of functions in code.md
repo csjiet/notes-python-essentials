@@ -1,0 +1,6 @@
+1. **Utility functions**: These are standalone functions designed to perform a specific task or calculate a particular result. They are often used to break down complex tasks into smaller, reusable components.
+2. **Inner functions**: Also known as nested functions, these are functions defined within another function. Inner functions have direct access to the variables and names defined in the enclosing function, providing a mechanism for encapsulation and code reuse.
+3. **Closure functions**: Closures are functions that retain their surrounding state even after the outer function has finished executing. This allows them to maintain state between successive invocations, which can be useful for creating persistent data structures or implementing certain algorithms.
+4. **Decorator functions**: Decorators are functions that modify the behavior of other functions without changing their underlying implementation. They are commonly used to add features such as logging, memoization, or access control to existing functions.
+5. **Helper functions**: Helper functions are subroutines designed to assist with a specific aspect of a larger algorithm or process. They typically perform a limited set of operations and are called by other functions within the same scope.
+
