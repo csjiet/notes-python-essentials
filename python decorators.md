@@ -1,8 +1,34 @@
+Types of decorators:
+[All decorators in python](https://wiki.python.org/moin/Decorators)
 
-Python decorators:
+## Types of decorators
+
+Function decorators
+
+
+= `@decorator`
+
+= `@decorator(arg1, arg2)`
+
+Built-in decorators
+= `@property`
+
+= `@classmethod`
+
+= `@staticmethod`
+
+Class decorators
+
+
+
+
+
+## Function decorators
+
+### 1.a `@decorator`
 - Use: allows a user to **add new functionality** ("decorate") to an existing core function without modifying its structure.
 
-## Syntax
+**Syntax**
 ``` python
 # Core function --- func()
 @decorator_function_name
@@ -31,7 +57,8 @@ func() # will execute 1) the decorator function first before 2) the core functio
 
 ```
 
-## Use: 
+**Use**: 
+
 - To EXTEND/ ENHANCE an existing core function, without adding code to the existing core function.
     - It does so by automatically invoking the decorator function, when the existing core function's signature is invoked. It first runs the code in the decorator function that wraps code around the existing core function's code.
 > Applications (extensions/ enhancements that are practical):
@@ -42,7 +69,8 @@ func() # will execute 1) the decorator function first before 2) the core functio
 > - Retry Mechanism: You can implement a decorator to automatically retry a function in case of failures or exceptions.
 
 
-## Examples:
+**Examples**:
+
 Syntax without decorators:
 ```python
 def my_decorator(function_to_be_decorated):
@@ -98,53 +126,86 @@ This is some code after the decorated function
 - Essentially, you just call the `decorated_function` and it does all the process of assembly (combining + returning the combined + call) for you.
 - Notice we do not need to call `decorate_function()()`, where the first `()` returns a function identifier, and the next `()` calls it as a function.
 
-------
-(Optional) Unconventional uses: 
-> We can also extend Python decorators to applications which involves more than one function.
 
-## Python decorator taking >1 function objects
--  It is possible, but not recommended.
-- Conceptually, decorators are supposed to alter the functionality of a single function they decorate; a function that sequences two other functions on an equal footing may not make much sense as a decorator. ([Source](https://stackoverflow.com/questions/46018980/python-decorator-for-multiple-functions-as-arguments#:~:text=Conceptually%2C%20decorators%20are%20supposed%20to,much%20sense%20as%20a%20decorator.))
+### 1.b Decorators with arguments
+xxx
+
+----
+
+## 2. Built-in decorators
+### 2.a Property decorators
+
+Definition: When @property is placed before a method, it transforms that method into a special class attribute that can be accessed and modified like any other class attribute without the need for explicit method calls to distinct getter, setter, or delete functions that performs these operations on the attribute. We can do so either by: 
+1. `@property`, `@<property_name>.setter`,`@<property_name>.getter`, and `@<property_name>.deleter`, 
+2. or using the in-built Python `property()` function --- see how we can ["transform a method into a special class attribute using either `property()` or `@property`"](https://www.geeksforgeeks.org/python-property-function/). 
+
+Example: --- [Long winded video example](https://www.youtube.com/watch?v=8BbngXWouzo)
 ```python
-# THIS CODE GENERATES AN ERROR:
-def my_decorator(func1, func2):
-    def wrapper():
-        print("Before calling functions")
-        func1()
-        func2()
-        print("After calling functions\n")
-    return wrapper
+# Python program to explain property()
+# function using decorator
 
-@my_decorator
-def my_function1():
-    print("Function 1 called")
+class Alphabet:
+	def __init__(self, value):
+		self._value = value
 
-@my_decorator
-def my_function2():
-    print("Function 2 called")
+	# getting the values
+	@property
+	def value(self):
+		print('Getting value')
+		return self._value
 
-my_function1()
-my_function2()
+	# setting the values
+	@value.setter
+	def value(self, value):
+		print('Setting value to ' + value)
+		self._value = value
 
-# Output GENERATES AN ERROR
-'''
-TypeError: my_decorator() missing 1 required positional argument: 'func2'
-'''
+	# deleting the values
+	@value.deleter
+	def value(self):
+		print('Deleting value')
+		del self._value
 
-# It makes more sense not to use decorator syntax:
-# E.g., 
-def sequence(f, g):
-   def sequenced_func():
-       f()
-       g()
-   return sequenced_func
 
-def func1():
-    print('func1')
+# passing the value
+x = Alphabet('Peter')
+print(x.value)
 
-def func2():
-    print('func2')
+x.value = 'Diesel'
 
-sequenced_func = sequence(func1, func2)
+del x.value
 ```
 
+### 2.b Classmethod decorators
+
+### 3.b Staticmethod decorators
+
+----
+
+## 3. Class decorators
+
+Definition: A "class decorator" is a **function** that takes a class as input and returns a new class. It extend or modify the behavior of a class at the time of creation without making changes to the original class.
+
+
+Syntax: 
+
+``` python
+def my_decorator(cls):
+    # Modify or extend the class
+    cls.new_attribute = "Added by decorator"
+
+    def new_function(self):
+        return "Added functionality"
+
+    return cls
+
+@my_decorator
+class MyClass:
+    pass
+
+obj = MyClass()
+
+print(obj.new_attribute)
+print(obj.new_function())
+
+```
