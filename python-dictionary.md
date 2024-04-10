@@ -1,4 +1,43 @@
 
+Functions that can be called to create or manipulate a dictionary
+
+dict()
+
+len(d)
+
+d[key]
+
+clear()
+
+copy()
+
+get()
+
+items()
+
+keys()
+
+values()
+
+pop()
+
+popitem()
+
+update()
+
+from collections import defaultdict
+d = defaultdict()
+
+setdefault()
+
+OrderedDict()
+
+dictionary comprehensions
+
+merging dictionaries {**dict1, **dict2}
+
+
+
 ### `defaultdict`
 `defaultdict` (a subclass of `dict` provided by the `collections`)
 - Use: Creates and assigns a new default value when a missing key is accessed from the dictionary.
